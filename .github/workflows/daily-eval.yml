@@ -25,11 +25,6 @@ jobs:
       - name: Install dependencies with uv
         run: uv pip install --system .
 
-      - name: Debug env
-        run: echo "KUSTOMER_API_KEY=$KUSTOMER_API_KEY"
-        env:
-          KUSTOMER_API_KEY: ${{ secrets.KUSTOMER_API_KEY }}
-
       - name: Run evaluation
         env:
           DEEPEVAL_API_KEY: ${{ secrets.DEEPEVAL_API_KEY }}
@@ -38,5 +33,6 @@ jobs:
           KUSTOMER_QUEUE_ID: ${{ secrets.KUSTOMER_QUEUE_ID }}
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
           GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           python -m evaluator_service
