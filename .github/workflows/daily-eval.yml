@@ -38,6 +38,5 @@ jobs:
           KUSTOMER_QUEUE_ID: ${{ secrets.KUSTOMER_QUEUE_ID }}
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
           GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
-          run: |
+        run: |
           python -m evaluator_service
-
