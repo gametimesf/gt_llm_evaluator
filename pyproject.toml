@@ -1,0 +1,15 @@
+[project]
+name = "chatbot_evaluator_service"
+version = "0.1.0"
+description = "Modular service for static LLM evaluation of customer conversations."
+requires-python = ">=3.12"
+dependencies = [
+    "deepeval>=2.7.6",
+    "deepteam>=0.0.9",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"] 
