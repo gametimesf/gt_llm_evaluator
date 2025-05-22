@@ -2,6 +2,7 @@ import requests
 import json
 from typing import List, Dict
 from datetime import datetime, timedelta
+import os
 
 class KustomerClient:
     """
@@ -15,6 +16,8 @@ class KustomerClient:
         """
         Initialize the client with the required API key, assigned user ID, and queue ID.
         """
+        api_key_env = os.getenv('KUSTOMER_API_KEY')
+        print(f"KUSTOMER_API_KEY env: {'*' * (len(api_key_env) - 4) + api_key_env[-4:] if api_key_env else 'NOT SET'}")
         print('api_key', api_key)
         self.api_key = api_key
         self.assigned_user_id = assigned_user_id
