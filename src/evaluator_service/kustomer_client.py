@@ -1,4 +1,5 @@
 import requests
+import json
 from typing import List, Dict
 from datetime import datetime, timedelta
 
@@ -14,6 +15,7 @@ class KustomerClient:
         """
         Initialize the client with the required API key, assigned user ID, and queue ID.
         """
+        print('api_key', api_key)
         self.api_key = api_key
         self.assigned_user_id = assigned_user_id
         self.queue_id = queue_id
@@ -22,7 +24,7 @@ class KustomerClient:
             "Content-Type": "application/json"
         }
 
-    def fetch_yesterdays_conversations(self, limit: int = 100) -> List[Dict]:
+    def fetch_yesterdays_conversations(self) -> List[Dict]:
         """
         Fetch conversations from yesterday using assigned_user_id and queue_id.
         Args:
@@ -45,13 +47,17 @@ class KustomerClient:
             "queryContext": "conversation",
             "sort": [{"conversation_created_at": "desc"}],
             "timeZone": "America/Los_Angeles",
-            "limit": limit
         }
+        print("HEADERS:", self.headers)
+        print("PAYLOAD:", json.dumps(search_payload, indent=2))
         try:
             response = requests.post(search_url, headers=self.headers, json=search_payload)
             response.raise_for_status()
             return response.json().get('data', [])
-        except requests.RequestException:
+        except requests.RequestException as e:
+            print(f"Error making request to Kustomer API: {str(e)}")
+            if hasattr(e.response, 'text'):
+                print(f"Response text: {e.response.text}")
             return []
 
     def fetch_single_conversation(self, convo_id: str) -> Dict:

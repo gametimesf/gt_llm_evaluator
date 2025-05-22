@@ -15,9 +15,12 @@ def main():
     assigned_user_id = os.getenv("KUSTOMER_ASSIGNED_USER_ID")  
     queue_id = os.getenv("KUSTOMER_QUEUE_ID")
 
+    print(f"Kustomer API Key {kustomer_key}")
+    print(f"Assigned User ID: {assigned_user_id}")
+    print(f"Queue ID: {queue_id}")
+
     kustomer = KustomerClient(api_key=kustomer_key, assigned_user_id=assigned_user_id, queue_id=queue_id)
-    conversations_data = kustomer.fetch_yesterdays_conversations(limit=100)
-    print(f"Fetched {len(conversations_data)} conversations")
+    conversations_data = kustomer.fetch_yesterdays_conversations()
 
     test_cases = []
     for convo in conversations_data:
