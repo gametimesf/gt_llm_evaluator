@@ -1,7 +1,7 @@
 import csv
 import os
 from typing import List
-
+from .drive_client import GoogleDriveClient
 class EvaluationReporter:
     """
     Handles reporting of evaluation results, including CSV generation and (future) Google Drive upload.
@@ -66,10 +66,18 @@ class EvaluationReporter:
                         writer.writerow([])
 
     @staticmethod
-    def upload_to_google_drive(filepath: str):
+    def upload_to_google_drive(filepath: str, folder_id: str) -> str:
         """
-        Upload a file to Google Drive (stub for now).
+        Upload a file to Google Drive.
         Args:
             filepath (str): Path to the file to upload.
+            folder_id (str): ID of the Google Drive folder to upload to.
+        Returns:
+            str: ID of the uploaded file in Google Drive
         """
-        pass 
+        credentials = os.getenv('GOOGLE_DRIVE_CREDENTIALS')
+        if not credentials:
+            raise ValueError("GOOGLE_DRIVE_CREDENTIALS environment variable not set")
+            
+        drive_client = GoogleDriveClient(credentials)
+        return drive_client.upload_file(filepath, folder_id)

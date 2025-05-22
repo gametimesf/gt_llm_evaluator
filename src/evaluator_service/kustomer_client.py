@@ -48,8 +48,6 @@ class KustomerClient:
             "sort": [{"conversation_created_at": "desc"}],
             "timeZone": "America/Los_Angeles",
         }
-        print("HEADERS:", self.headers)
-        print("PAYLOAD:", json.dumps(search_payload, indent=2))
         try:
             response = requests.post(search_url, headers=self.headers, json=search_payload)
             response.raise_for_status()

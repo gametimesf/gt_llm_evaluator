@@ -10,14 +10,15 @@ from evaluator_service.reporter import EvaluationReporter
 def main():
     load_dotenv()
 
+    # Add Google Drive folder ID to environment variables
+    drive_folder_id = os.getenv("GOOGLE_DRIVE_FOLDER_ID")
+    if not drive_folder_id:
+        print("Warning: GOOGLE_DRIVE_FOLDER_ID not set. Google Drive upload will be skipped.")
+
     deepeval_key = os.getenv("DEEPEVAL_API_KEY")
     kustomer_key = os.getenv("KUSTOMER_API_KEY")
     assigned_user_id = os.getenv("KUSTOMER_ASSIGNED_USER_ID")  
     queue_id = os.getenv("KUSTOMER_QUEUE_ID")
-
-    print(f"Kustomer API Key {kustomer_key}")
-    print(f"Assigned User ID: {assigned_user_id}")
-    print(f"Queue ID: {queue_id}")
 
     kustomer = KustomerClient(api_key=kustomer_key, assigned_user_id=assigned_user_id, queue_id=queue_id)
     conversations_data = kustomer.fetch_yesterdays_conversations()
@@ -48,6 +49,20 @@ def main():
     eval_csv = f'deepeval_results/convo_eval/eval_results_{timestamp}.csv'
     EvaluationReporter.write_evaluation_results_to_csv(results, eval_csv)
     print(f"Wrote evaluation results to {eval_csv}")
+
+    # Test Google Drive upload if folder ID is provided
+    if drive_folder_id:
+        try:
+            print("Attempting to upload files to Google Drive...")
+            convo_file_id = EvaluationReporter.upload_to_google_drive(convo_csv, drive_folder_id)
+            print(f"Successfully uploaded conversations file. File ID: {convo_file_id}")
+            
+            eval_file_id = EvaluationReporter.upload_to_google_drive(eval_csv, drive_folder_id)
+            print(f"Successfully uploaded evaluation results file. File ID: {eval_file_id}")
+        except Exception as e:
+            print(f"Failed to upload files to Google Drive: {str(e)}")
+    else:
+        print("Skipping Google Drive upload as GOOGLE_DRIVE_FOLDER_ID is not set.")
 
 if __name__ == "__main__":
     main()
