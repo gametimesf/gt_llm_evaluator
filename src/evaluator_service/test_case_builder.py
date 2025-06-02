@@ -56,4 +56,31 @@ class TestCaseBuilder:
             additional_metadata={
                 "convo_id": convo_id
             })
-        return convo_test_case 
+        return convo_test_case
+
+    @staticmethod
+    def parse_simulated_conversations_csv(csv_path: str) -> list:
+        """
+        Parse a CSV of simulated conversations and return a list of ConversationalTestCase objects.
+        Each conversation is separated by 3 empty lines (as in the reporting format).
+        """
+        import csv
+        test_cases = []
+        with open(csv_path, newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            header = next(reader)
+            transcript = []
+            convo_id = 'simulated'
+            for row in reader:
+                if not any(row):  # empty row
+                    if transcript:
+                        test_case = TestCaseBuilder.build_conversation_test_case(transcript, convo_id)
+                        test_cases.append(test_case)
+                        transcript = []
+                    continue
+                if row[0].startswith('Turn'):
+                    transcript.append({"input": row[1], "actual_output": row[2]})
+            if transcript:
+                test_case = TestCaseBuilder.build_conversation_test_case(transcript, convo_id)
+                test_cases.append(test_case)
+        return test_cases 
