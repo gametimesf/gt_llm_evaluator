@@ -173,5 +173,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# don't upload CSVs
-*.csv
+# don't upload CSVs in deepeval_results/convo_eval
+deepeval_results/convo_eval/*.csv

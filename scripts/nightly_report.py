@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+"""
+Nightly report script for chatbot evaluation. Fetches real conversations, evaluates, and writes results to CSV/Drive.
+"""
 import os
 from dotenv import load_dotenv
 from datetime import datetime
-
 from evaluator_service.kustomer_client import KustomerClient
 from evaluator_service.test_case_builder import TestCaseBuilder
 from evaluator_service.evaluator import ConversationEvaluator
@@ -65,4 +68,4 @@ def main():
         print("Skipping Google Drive upload as GOOGLE_DRIVE_FOLDER_ID is not set.")
 
 if __name__ == "__main__":
-    main()
+    main() 

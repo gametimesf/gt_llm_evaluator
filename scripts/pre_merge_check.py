@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Pre-merge check script for chatbot evaluation. Reads simulated conversations, evaluates them, and exits with pass/fail for CI.
+"""
 import os
 import sys
 from dotenv import load_dotenv
@@ -7,7 +11,7 @@ from evaluator_service.evaluator import ConversationEvaluator
 def main():
     load_dotenv()
     deepeval_key = os.getenv("DEEPEVAL_API_KEY")
-    csv_path = "deepeval_results/convo_eval/simulated_conversations.csv"
+    csv_path = "mock_data/simulated_conversations.csv"
     if not os.path.exists(csv_path):
         print(f"Simulated conversations CSV not found at {csv_path}")
         sys.exit(1)
