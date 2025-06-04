@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class ConversationGenerator:
     """Handles generation of simulated conversations using an API endpoint."""
     
-    def __init__(self, api_url: str = "http://localhost:3000/api/dot/test-response"):
+    def __init__(self, api_url: str = "https://gametime-ai-chatbot-staging.vercel.app/api/dot/test-response"):
         """
         Initialize the conversation generator.
         
