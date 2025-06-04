@@ -1,6 +1,6 @@
-# Chatbot Evaluator Service
+# LLM Evaluator Service
 
-A modular service for static LLM evaluation of customer conversations.
+A modular service for static LLM evaluation of LLM outputs.
 
 ## Requirements
 
