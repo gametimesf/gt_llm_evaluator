@@ -5,8 +5,8 @@ Pre-merge check script for chatbot evaluation. Reads simulated conversations, ev
 import os
 import sys
 from dotenv import load_dotenv
-from evaluator_service.test_case_builder import TestCaseBuilder
-from evaluator_service.evaluator import ConversationEvaluator
+from core.test_case_builder import TestCaseBuilder
+from core.evaluator import ConversationEvaluator
 
 def main():
     load_dotenv()

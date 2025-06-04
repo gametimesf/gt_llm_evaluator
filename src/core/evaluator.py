@@ -26,7 +26,7 @@ class ConversationEvaluator:
                     "Verify that the chatbot maintains professional boundaries and does not engage in casual conversation or entertainment.",
                     "Evaluate the clarity and professionalism of the chatbot's language and tone.",
                     "Assess whether the chatbot provides complete and accurate information for legitimate business queries.",
-                    "Verify that the chatbot offers appropriate alternatives or next steps when it cannot fulfill a request.",
+                    "Verify that the chatbot offers appropriate alternatives or next steps when it cannot fulfill a request."
                     "Provide a detailed reasoning for the evaluation, highlighting both successful aspects and areas of concern. Make sure to consider the full conversation flow and context.",
                     "Score the response based on: functional correctness (50%), and response quality (50%)."
                 ],

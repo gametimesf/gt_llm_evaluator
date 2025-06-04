@@ -6,9 +6,9 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 from evaluator_service.kustomer_client import KustomerClient
-from evaluator_service.test_case_builder import TestCaseBuilder
-from evaluator_service.evaluator import ConversationEvaluator
-from evaluator_service.reporter import EvaluationReporter
+from core.test_case_builder import TestCaseBuilder
+from core.evaluator import ConversationEvaluator
+from core.reporter import EvaluationReporter
 
 def main():
     load_dotenv()
