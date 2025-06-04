@@ -52,6 +52,25 @@ Located in `scripts/chatbot/`:
 - Core evaluation script for analyzing conversations
 - Usage: `uv run convo_eval.py`
 
+### FAQ Generator Scripts
+
+Located in `scripts/faq_generator/`:
+
+- `faq_eval.py` - Evaluates FAQ content using DeepEval metrics
+  - Usage: `uv run scripts/faq_generator/faq_eval.py --input "Your prompt" --content "Generated FAQ content" --context "Reference material"`
+  - Required arguments:
+    - `--input`: The input prompt text used to generate the FAQ
+    - `--content`: The generated FAQ content to evaluate
+    - `--context`: The reference material or ground truth to check against
+  - Output: Generates a CSV file in `deepeval_results/faq_eval/` with evaluation metrics including:
+    - Hallucination score
+    - Evaluation reasoning
+    - Cost metrics
+  - Requirements:
+    - DEEPEVAL_API_KEY environment variable must be set
+    - Python 3.12 or higher
+    - DeepEval package installed
+
 ## Project Structure
 
 - `src/` - Source code directory

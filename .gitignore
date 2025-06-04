@@ -173,5 +173,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+#deepeval cache
+.deepeval/
+
 # don't upload CSVs in deepeval_results/convo_eval
 deepeval_results/convo_eval/*.csv
+deepeval_results/faq_eval/*.csv
