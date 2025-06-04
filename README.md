@@ -9,55 +9,55 @@ A modular service for static LLM evaluation of customer conversations.
 
 ## Setup
 
-1. Create and activate a virtual environment:
+1. Install UV (if not already installed):
 
 ```bash
-python -m venv .venv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+2. Create and activate a virtual environment using UV:
+
+```bash
+uv venv
 source .venv/bin/activate  # On Unix/macOS
 # or
 .venv\Scripts\activate  # On Windows
 ```
 
-2. Install dependencies:
+3. Install dependencies using UV:
 
 ```bash
-pip install -e .
+uv pip install -e .
 ```
 
 ## Available Scripts
 
-### Conversation Simulation
+### Chatbot Evaluation Scripts
 
-`scripts/simulate_convo.py`
+Located in `scripts/chatbot/`:
 
-- Simulates conversations for testing and evaluation purposes
-- Usage: `python scripts/simulate_convo.py`
+- `simulate_convo.py` - Creates simulated conversations for testing and evaluation purposes
+  - Usage: `uv run scripts/chatbot/simulate_convo.py`
 
-### Pre-merge Checks
+- `pre_merge_check.py` - Runs validation checks before merging code changes
+  - Usage: `uv run scripts/chatbot/pre_merge_check.py`
 
-`scripts/pre_merge_check.py`
-
-- Runs validation checks before merging code changes
-- Usage: `python scripts/pre_merge_check.py`
-
-### Nightly Report Generation
-
-`scripts/nightly_report.py`
-
-- Generates daily evaluation reports
-- Usage: `python scripts/nightly_report.py`
+- `nightly_report.py` - Generates daily evaluation reports
+  - Usage: `uv run scripts/chatbot/nightly_report.py`
 
 ### Main Evaluation Script
 
 `convo_eval.py`
 
 - Core evaluation script for analyzing conversations
-- Usage: `python convo_eval.py`
+- Usage: `uv run convo_eval.py`
 
 ## Project Structure
 
 - `src/` - Source code directory
 - `scripts/` - Utility scripts for various tasks
+  - `chatbot/` - Chatbot evaluation and testing scripts
+  - `faq_generator/` - FAQ generation scripts
 - `mock_data/` - Sample data for testing
 - `deepeval_results/` - Output directory for evaluation results
 

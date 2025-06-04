@@ -35,4 +35,4 @@ jobs:
           GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python -m evaluator_service
+          python -m scripts.chatbot.nightly_report
