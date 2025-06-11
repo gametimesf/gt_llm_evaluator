@@ -6,16 +6,23 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 class GoogleDriveClient:
-    def __init__(self, credentials_json: str):
+    def __init__(self, credentials_json: str = None):
         """Initialize the Google Drive client with service account credentials.
         
         Args:
-            credentials_json (str): JSON string containing service account credentials
+            credentials_json (str, optional): JSON string containing service account credentials. If None, will use GOOGLE_APPLICATION_CREDENTIALS file.
         """
-        self.credentials = service_account.Credentials.from_service_account_info(
-            json.loads(credentials_json),
-            scopes=['https://www.googleapis.com/auth/drive.file']
-        )
+        if credentials_json:
+            self.credentials = service_account.Credentials.from_service_account_info(
+                json.loads(credentials_json),
+                scopes=['https://www.googleapis.com/auth/drive.file']
+            )
+        else:
+            # Use credentials from file specified by GOOGLE_APPLICATION_CREDENTIALS
+            self.credentials = service_account.Credentials.from_service_account_file(
+                os.environ["GOOGLE_APPLICATION_CREDENTIALS"],
+                scopes=['https://www.googleapis.com/auth/drive.file']
+            )
         self.service = build('drive', 'v3', credentials=self.credentials)
     
     def upload_file(self, file_path: str, folder_id: str) -> str:
