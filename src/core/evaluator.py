@@ -1,6 +1,6 @@
 from deepeval import evaluate, login_with_confident_api_key
-from deepeval.test_case import LLMTestCaseParams
-from deepeval.metrics import GEval
+from deepeval.test_case.conversational_test_case import TurnParams
+from deepeval.metrics import ConversationalGEval
 from typing import List
 
 class ConversationEvaluator:
@@ -14,10 +14,10 @@ class ConversationEvaluator:
         """
         login_with_confident_api_key(deepeval_api_key)
         self.metrics = [
-            GEval(
+            ConversationalGEval(
                 name="Correctness",
                 evaluation_steps=[
-                    "Input is the customer message, actual_output is the chatbot response.",
+                    "Turns will alternate between a customer message and achatbot response.",
                     "Determine if the user's query is related to the company's platform and services. If not, the chatbot should politely decline to assist.",
                     "Evaluate whether the chatbot maintains appropriate boundaries - it should decline requests for: poems, rhymes, homework help, coding assistance, or any non-business related queries.",
                     "Assess if the chatbot's responses are professional, clear, and directly address the user's legitimate business inquiries.",
@@ -26,17 +26,17 @@ class ConversationEvaluator:
                     "Verify that the chatbot maintains professional boundaries and does not engage in casual conversation or entertainment.",
                     "Evaluate the clarity and professionalism of the chatbot's language and tone.",
                     "Assess whether the chatbot provides complete and accurate information for legitimate business queries.",
-                    "Verify that the chatbot offers appropriate alternatives or next steps when it cannot fulfill a request."
+                    "Verify that the chatbot offers appropriate alternatives or next steps when it cannot fulfill a request.",
                     "Provide a detailed reasoning for the evaluation, highlighting both successful aspects and areas of concern. Make sure to consider the full conversation flow and context.",
                     "Score the response based on: functional correctness (50%), and response quality (50%)."
                 ],
-                evaluation_params=[LLMTestCaseParams.INPUT, LLMTestCaseParams.ACTUAL_OUTPUT],
+                evaluation_params=[TurnParams.CONTENT],
                 threshold=0.7
             ),
-            GEval(
+            ConversationalGEval(
                 name="Verification",
                 evaluation_steps=[
-                    "Input is the customer message, actual_output is the chatbot response.",
+                    "Turns will alternate between a customer message and achatbot response.",
                     "Verification is required when the user asks about:",
                     "- Ticket delivery status or timing",
                     "- Purchase details or order status",
@@ -65,7 +65,7 @@ class ConversationEvaluator:
                     "- Maintaining security by not revealing sensitive info before verification (10%)",
                     "Provide a detailed reasoning for the evaluation, highlighting both successful aspects and areas of concern.",
                 ],
-                evaluation_params=[LLMTestCaseParams.INPUT, LLMTestCaseParams.ACTUAL_OUTPUT],
+                evaluation_params=[TurnParams.CONTENT],
                 threshold=0.7
             )
         ]

@@ -9,6 +9,7 @@ from evaluator_service.kustomer_client import KustomerClient
 from core.test_case_builder import TestCaseBuilder
 from core.evaluator import ConversationEvaluator
 from core.reporter import EvaluationReporter
+import pprint
 
 def main():
     load_dotenv()
@@ -42,24 +43,20 @@ def main():
         return
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    convo_csv = f'deepeval_results/convo_eval/conversations_{timestamp}.csv'
-    EvaluationReporter.write_conversations_to_csv(test_cases, convo_csv)
-    print(f"Wrote conversations to {convo_csv}")
 
     evaluator = ConversationEvaluator(deepeval_api_key=deepeval_key)
     results = evaluator.evaluate(test_cases)
 
     eval_csv = f'deepeval_results/convo_eval/eval_results_{timestamp}.csv'
-    EvaluationReporter.write_evaluation_results_to_csv(results, eval_csv)
-    print(f"Wrote evaluation results to {eval_csv}")
+    if results:
+        EvaluationReporter.write_evaluation_results_to_csv(results, eval_csv)
+        print(f"Wrote evaluation results to {eval_csv} (local file, available before upload)")
+    else:
+        print("No evaluation results to write due to error.")
 
     # Test Google Drive upload if folder ID is provided
     if drive_folder_id:
         try:
-            print("Attempting to upload files to Google Drive...")
-            convo_file_id = EvaluationReporter.upload_to_google_drive(convo_csv, drive_folder_id)
-            print(f"Successfully uploaded conversations file. File ID: {convo_file_id}")
-            
             eval_file_id = EvaluationReporter.upload_to_google_drive(eval_csv, drive_folder_id)
             print(f"Successfully uploaded evaluation results file. File ID: {eval_file_id}")
         except Exception as e:

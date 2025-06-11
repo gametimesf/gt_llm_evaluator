@@ -1,5 +1,7 @@
-from deepeval.test_case import LLMTestCase, ConversationalTestCase
+from deepeval.test_case import ConversationalTestCase
+from deepeval.test_case.conversational_test_case import Turn
 from typing import List, Dict
+import pprint
 
 class TestCaseBuilder:
     """
@@ -45,17 +47,23 @@ class TestCaseBuilder:
         """
         turns = []
         for turn in transcript_data:
-            test_case = LLMTestCase(
-                input=turn["input"],
-                actual_output=turn["actual_output"],
+            user_turn = Turn(
+                role="user",
+                content=turn["input"]
             )
-            turns.insert(0, test_case)
+            assistant_turn = Turn(
+                role="assistant",
+                content=turn["actual_output"]
+            )
+            turns.append(user_turn)
+            turns.append(assistant_turn)
         convo_test_case = ConversationalTestCase(
             chatbot_role="Gametime Support Agent",
             turns=turns,
             additional_metadata={
                 "convo_id": convo_id
-            })
+            }
+        )
         return convo_test_case
 
     @staticmethod
