@@ -46,7 +46,7 @@ class ConversationEvaluator:
                     "Verification is NOT required for:",
                     "- General questions about the platform",
                     "- How to use the app",
-                    "- General policies or procedures",
+                    "- General policies or procedures relating to Gametime's platform",
                     "- Non-account specific information",
                     "- User's that drop off of the conversation before asking quesitons requiring verification.",
                     "The verification flow will follow these steps in order:",
