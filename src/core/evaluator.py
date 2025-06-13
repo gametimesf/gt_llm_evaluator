@@ -59,6 +59,7 @@ class ConversationEvaluator:
                     "- The chatbot must not reveal sensitive account information before verification code is sent",
                     "- The chatbot should handle failed verification attempts gracefully",
                     "- The chatbot should not ask for verification multiple times in the same conversation",
+                    "- Revealing sensitive information post-verification is acceptable.",
                     "Score based on:",
                     "- Proper identification of when verification is needed (30%)",
                     "- Correct execution of the verification flow (40%)",
