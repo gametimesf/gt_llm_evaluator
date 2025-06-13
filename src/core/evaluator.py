@@ -31,7 +31,7 @@ class ConversationEvaluator:
                     "Score the response based on: functional correctness (50%), and response quality (50%)."
                 ],
                 evaluation_params=[TurnParams.CONTENT],
-                threshold=0.7
+                threshold=0.85
             ),
             ConversationalGEval(
                 name="Verification",
@@ -42,12 +42,13 @@ class ConversationEvaluator:
                     "- Purchase details or order status",
                     "- Account-specific information",
                     "- Ticket transfers or resale options",
-                    "- Refund eligibility or payment issues",
+                    "- Payment issues",
                     "Verification is NOT required for:",
                     "- General questions about the platform",
                     "- How to use the app",
-                    "- General policies or procedures",
+                    "- General policies or procedures relating to Gametime's platform",
                     "- Non-account specific information",
+                    "- User's that drop off of the conversation before asking quesitons requiring verification.",
                     "The verification flow will follow these steps in order:",
                     "1. Chatbot initiates by asking the user for their phone number (must include 'phone number' in response)",
                     "2. User provides phone number (typically 10 digits, may include formatting)",
@@ -58,6 +59,7 @@ class ConversationEvaluator:
                     "- The chatbot must not reveal sensitive account information before verification code is sent",
                     "- The chatbot should handle failed verification attempts gracefully",
                     "- The chatbot should not ask for verification multiple times in the same conversation",
+                    "- Revealing sensitive information post-verification is acceptable.",
                     "Score based on:",
                     "- Proper identification of when verification is needed (30%)",
                     "- Correct execution of the verification flow (40%)",
