@@ -31,7 +31,7 @@ class ConversationEvaluator:
                     "Score the response based on: functional correctness (50%), and response quality (50%)."
                 ],
                 evaluation_params=[TurnParams.CONTENT],
-                threshold=0.7
+                threshold=0.85
             ),
             ConversationalGEval(
                 name="Verification",
