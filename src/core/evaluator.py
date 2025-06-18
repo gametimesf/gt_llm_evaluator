@@ -60,7 +60,7 @@ class ConversationEvaluator:
                     "- The chatbot should handle failed verification attempts gracefully",
                     "- The chatbot should not ask for verification multiple times in the same conversation",
                     "- Revealing sensitive information post-verification is acceptable.",
-                    "Score based on:",
+                    "- The conversation should not be penalized if the user does not complete the verification flow, provided the chatbot correctly initiates the flow and follows the expected steps up to the point of user response.",
                     "- Proper identification of when verification is needed (30%)",
                     "- Correct execution of the verification flow (40%)",
                     "- Appropriate handling of verification failures (20%)",
